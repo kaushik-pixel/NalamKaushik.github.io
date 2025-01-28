@@ -6,11 +6,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-app = Flask(__name__, static_folder="frontend", static_url_path="/frontend")
+app = Flask(__name__)
 
+# Serve index.html from the root directory
 @app.route("/")
 def serve_frontend():
-    return send_from_directory("frontend", "index.html")
+    return send_from_directory(os.getcwd(), "index.html")
     
 @app.route("/test")
 def test():
