@@ -75,20 +75,28 @@ chat_sessions = {}
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_id = request.json.get("user_id", "default")
-    user_message = request.json.get("message")
+    try:
+        user_id = request.json.get("user_id", "default")
+        user_message = request.json.get("message")
+
+        if not user_message:
+            return jsonify({"error": "Message cannot be empty"}), 400
+
+        if user_id not in chat_sessions:
+            chat_sessions[user_id] = model.start_chat(history=[])
+
+        chat_session = chat_sessions[user_id]
+        response = chat_session.send_message(user_message)
+
+        # Save history for context
+        chat_session.history.append({"role": "user", "parts": [user_message]})
+        chat_session.history.append({"role": "model", "parts": [response.text]})
+
+        return jsonify({"response": response.text})
     
-    if user_id not in chat_sessions:
-        chat_sessions[user_id] = model.start_chat(history=[])
-
-    chat_session = chat_sessions[user_id]
-    response = chat_session.send_message(user_message)
-
-    # Save history for context
-    chat_session.history.append({"role": "user", "parts": [user_message]})
-    chat_session.history.append({"role": "model", "parts": [response.text]})
-
-    return jsonify({"response": response.text})
+    except Exception as e:
+        print(f"Error processing message: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 
 if __name__ == "__main__":
