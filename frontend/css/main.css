@@ -3895,7 +3895,7 @@ input, select, textarea {
 	max-width: 400px; /* Max width for larger screens */
 	height: 500px;
 	overflow: hidden;
-	display: none;
+	display: none; /* Hidden by default */
 }
 
 
@@ -3915,7 +3915,7 @@ input, select, textarea {
 	right: 20px;
 	z-index: 1001;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-	display: flex;
+	display: flex; /* Show button */
 }
 
 .chatbot-header {
