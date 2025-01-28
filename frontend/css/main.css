@@ -3880,7 +3880,7 @@ input, select, textarea {
 		}
 
 	}
-	/* Chatbot Box Styling */
+/* Chatbot Box Styling old stable code */
 .chatbot-container {
 	position: fixed;
 	bottom: 20px;
