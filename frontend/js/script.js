@@ -6,12 +6,6 @@ const chatbotButton = document.querySelector('.chatbot-button');
 const closeButton = document.querySelector('.close-button');
 // Replace with your actual user ID (if needed)
 const userId = "your_user_id";
-
-// Initially hide chatbot container, keep the button visible
-window.addEventListener('load', () => {
-  chatbotContainer.style.display = 'none';
-  chatbotButton.style.display = 'flex';
-});
 // Show chatbot when the button is clicked
 chatbotButton.addEventListener('click', () => {
 	chatbotContainer.style.display = 'flex'; // Show chatbot
